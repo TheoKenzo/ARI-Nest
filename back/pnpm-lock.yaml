@@ -8,6 +8,7 @@ specifiers:
   '@nestjs/platform-fastify': ^10.4.4
   '@nestjs/schematics': ^10.0.0
   '@nestjs/testing': ^10.0.0
+  '@prisma/client': 5.20.0
   '@types/express': ^4.17.17
   '@types/jest': ^29.5.2
   '@types/node': ^20.3.1
@@ -35,6 +36,7 @@ dependencies:
   '@nestjs/core': 10.4.4_ht5pqpaofvsf4vyzigb2jc4kb4
   '@nestjs/platform-express': 10.4.4_ssqstvhzghe7wlkuzlh74ky24y
   '@nestjs/platform-fastify': 10.4.4_ssqstvhzghe7wlkuzlh74ky24y
+  '@prisma/client': 5.20.0_prisma@5.20.0
   prisma: 5.20.0
   reflect-metadata: 0.2.2
   rxjs: 7.8.1
@@ -1119,6 +1121,19 @@ packages:
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
+
+  /@prisma/client/5.20.0_prisma@5.20.0:
+    resolution: {integrity: sha512-CLv55ZuMuUawMsxoqxGtLT3bEZoa2W8L3Qnp6rDIFWy+ZBrUcOFKdoeGPSnbBqxc3SkdxJrF+D1veN/WNynZYA==}
+    engines: {node: '>=16.13'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      prisma: 5.20.0
+    dev: false
 
   /@prisma/debug/5.20.0:
     resolution: {integrity: sha512-oCx79MJ4HSujokA8S1g0xgZUGybD4SyIOydoHMngFYiwEwYDQ5tBQkK5XoEHuwOYDKUOKRn/J0MEymckc4IgsQ==}
