@@ -2,7 +2,9 @@ import { Controller, Get, Post, Put, Delete, Body } from '@nestjs/common';
 import { HistoricosService } from './historicos.service';
 import { CreateHistoricoDto } from './dto/create-historico.dto';
 import { UpdateHsitoricoDto } from './dto/update-historico.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('historicos')
 @Controller('historicos')
 export class HistoricosController {
   constructor(private readonly historicosService: HistoricosService) {}
