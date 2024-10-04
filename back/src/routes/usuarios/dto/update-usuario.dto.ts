@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateRemedioDto {
+export class UpdateUsuarioDto {
   @ApiProperty({
     type: Number,
     required: true,
@@ -14,14 +14,20 @@ export class UpdateRemedioDto {
   nome: string;
 
   @ApiProperty({
-    type: Number,
+    type: String,
     required: true,
   })
-  funcao: number;
+  email: string;
 
   @ApiProperty({
-    type: Number,
+    type: String,
     required: true,
   })
-  dosagem: number;
+  senha: string;
+
+  @ApiProperty({
+    type: Date,
+    required: true,
+  })
+  dt_nascimento: Date;
 }

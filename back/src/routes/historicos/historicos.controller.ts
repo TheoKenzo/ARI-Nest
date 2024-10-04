@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Put, Delete, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { HistoricosService } from './historicos.service';
 import { CreateHistoricoDto } from './dto/create-historico.dto';
 import { UpdateHsitoricoDto } from './dto/update-historico.dto';
@@ -20,17 +28,20 @@ export class HistoricosController {
   }
 
   @Get(':id')
-  findOne(@Body() id: number) {
-    return this.historicosService.findOne(id);
+  findOne(@Param() id: string) {
+    const historicoId = parseInt(id);
+    return this.historicosService.findOne(historicoId);
   }
 
   @Put(':id')
-  update(@Body() id: number, @Body() historico: UpdateHsitoricoDto) {
-    return this.historicosService.update(id, historico);
+  update(@Param() id: string, @Body() historico: UpdateHsitoricoDto) {
+    const historicoId = parseInt(id);
+    return this.historicosService.update(historicoId, historico);
   }
 
   @Delete(':id')
-  remove(@Body() id: number) {
-    return this.historicosService.remove(id);
+  remove(@Param() id: string) {
+    const historicoId = parseInt(id);
+    return this.historicosService.remove(historicoId);
   }
 }

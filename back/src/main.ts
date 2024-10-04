@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('ARI API')
     .setDescription('Sistema de Agendamento de Remédios para Idosos')
     .setVersion('1.0')
-    .addTag('ari')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

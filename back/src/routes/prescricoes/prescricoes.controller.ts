@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Put, Delete, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { PrescricoesService } from './prescricoes.service';
 import { CreatePrescricaoDto } from './dto/create-prescricao.dto';
 import { UpdatePrescricaoDto } from './dto/update-prescricao.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Prescricoes')
 @Controller('prescricoes')
 export class PrescricoesController {
   constructor(private prescricoesService: PrescricoesService) {}
@@ -18,17 +28,20 @@ export class PrescricoesController {
   }
 
   @Get(':id')
-  findOne(@Body() id: number) {
-    return this.prescricoesService.findOne(id);
+  findOne(@Param() id: string) {
+    const prescricaoId = parseInt(id);
+    return this.prescricoesService.findOne(prescricaoId);
   }
 
   @Put(':id')
-  update(@Body() id: number, @Body() prescricao: UpdatePrescricaoDto) {
-    return this.prescricoesService.update(id, prescricao);
+  update(@Param() id: string, @Body() prescricao: UpdatePrescricaoDto) {
+    const prescricaoId = parseInt(id);
+    return this.prescricoesService.update(prescricaoId, prescricao);
   }
 
   @Delete(':id')
-  remove(@Body() id: number) {
-    return this.prescricoesService.remove(id);
+  remove(@Param() id: string) {
+    const prescricaoId = parseInt(id);
+    return this.prescricoesService.remove(prescricaoId);
   }
 }

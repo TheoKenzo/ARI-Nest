@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Put, Delete, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
-import { UpdateUsuarioDto } from './dto/update-dto';
+import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Usuários')
 @Controller('usuarios')
 export class UsuariosController {
   constructor(private usuariosService: UsuariosService) {}
@@ -18,17 +28,20 @@ export class UsuariosController {
   }
 
   @Get(':id')
-  findOne(@Body() id: number) {
-    return this.usuariosService.findOne(id);
+  findOne(@Param('id') id: string) {
+    const userId = parseInt(id);
+    return this.usuariosService.findOne(userId);
   }
 
   @Put(':id')
-  update(@Body() id: number, @Body() usuario: UpdateUsuarioDto) {
-    return this.usuariosService.update(id, usuario);
+  update(@Param('id') id: string, @Body() usuario: UpdateUsuarioDto) {
+    const userId = parseInt(id);
+    return this.usuariosService.update(userId, usuario);
   }
 
   @Delete(':id')
-  remove(@Body() id: number) {
-    return this.usuariosService.remove(id);
+  remove(@Param('id') id: string) {
+    const userId = parseInt(id);
+    return this.usuariosService.remove(userId);
   }
 }
