@@ -15,3 +15,10 @@ Sistema de Agendamento de Remédios para Idosos
 pnpx prisma migrate dev --name init
 pnpx prisma generate
 ```
+
+## RODAR
+
+```node
+pnpm start
+pnpm start:dev
+```
