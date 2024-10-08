@@ -1,16 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import prisma from '../../../prisma/prismaClient';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
-  create(usuario: CreateUsuarioDto) {
+  async create(usuario: CreateUsuarioDto) {
     try {
+      const saltRounds = await bcrypt.genSalt();
+      usuario.senha = await bcrypt.hash(usuario.senha, saltRounds);
       usuario.dt_nascimento = new Date(usuario.dt_nascimento);
       return prisma.usuario.create({ data: usuario });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async login(email: string, senha: string) {
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { email: email, status: true },
+      });
+      if (usuario) {
+        const result = await bcrypt.compare(senha, usuario.senha);
+        if (result) {
+          return usuario;
+        } else {
+          throw new UnauthorizedException('Credenciais inválidas');
+        }
+      } else {
+        throw new UnauthorizedException('Credenciais inválidas');
+      }
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
 

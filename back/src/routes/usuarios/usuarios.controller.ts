@@ -22,6 +22,11 @@ export class UsuariosController {
     return this.usuariosService.create(usuario);
   }
 
+  @Get('login')
+  login(@Body('email') email: string, @Body('senha') senha: string) {
+    return this.usuariosService.login(email, senha);
+  }
+
   @Get()
   findAll() {
     return this.usuariosService.findAll();
