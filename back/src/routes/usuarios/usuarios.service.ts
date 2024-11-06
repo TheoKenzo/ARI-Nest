@@ -1,12 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import prisma from '../../../prisma/prismaClient';
-import { CreateUsuarioDto } from './dto/create-usuario.dto';
+import { signUpUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
-  async create(usuario: CreateUsuarioDto) {
+  async signUp(usuario: signUpUsuarioDto) {
     try {
       const saltRounds = await bcrypt.genSalt();
       usuario.senha = await bcrypt.hash(usuario.senha, saltRounds);
@@ -14,27 +14,6 @@ export class UsuariosService {
       return prisma.usuario.create({ data: usuario });
     } catch (error) {
       console.log(error);
-    }
-  }
-
-  async login(email: string, senha: string) {
-    try {
-      const usuario = await prisma.usuario.findUnique({
-        where: { email: email, status: true },
-      });
-      if (usuario) {
-        const result = await bcrypt.compare(senha, usuario.senha);
-        if (result) {
-          return usuario;
-        } else {
-          throw new UnauthorizedException('Credenciais inválidas');
-        }
-      } else {
-        throw new UnauthorizedException('Credenciais inválidas');
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
     }
   }
 
@@ -46,9 +25,17 @@ export class UsuariosService {
     }
   }
 
-  findOne(id: number) {
+  findOneById(id: number) {
     try {
       return prisma.usuario.findUnique({ where: { id: id, status: true } });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  findOneByEmail(email: string) {
+    try {
+      return prisma.usuario.findUnique({ where: { email: email } });
     } catch (error) {
       console.log(error);
     }
