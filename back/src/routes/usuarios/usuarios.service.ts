@@ -1,8 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import prisma from '../../../prisma/prismaClient';
 import { signUpUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import * as bcrypt from 'bcrypt';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 
 @Injectable()
 export class UsuariosService {
@@ -13,7 +14,7 @@ export class UsuariosService {
       usuario.dt_nascimento = new Date(usuario.dt_nascimento);
       return prisma.usuario.create({ data: usuario });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 
@@ -21,7 +22,7 @@ export class UsuariosService {
     try {
       return prisma.usuario.findMany({ where: { status: true } });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 
@@ -29,7 +30,7 @@ export class UsuariosService {
     try {
       return prisma.usuario.findUnique({ where: { id: id, status: true } });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 
@@ -37,7 +38,7 @@ export class UsuariosService {
     try {
       return prisma.usuario.findUnique({ where: { email: email } });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 
@@ -48,7 +49,7 @@ export class UsuariosService {
         data: usuario,
       });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 
@@ -59,7 +60,7 @@ export class UsuariosService {
         data: { status: false },
       });
     } catch (error) {
-      console.log(error);
+      throw new ExceptionsHandler();
     }
   }
 }
